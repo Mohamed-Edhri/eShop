@@ -1,6 +1,5 @@
 pipeline {
     options { skipDefaultCheckout() }
-    agent {label 'Built-InNode'}
     stages {
         stage('BUILD & Push Image to azure') {
             steps {
