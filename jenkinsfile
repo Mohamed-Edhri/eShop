@@ -5,38 +5,31 @@ pipeline {
         stage('BUILD & Push Image to azure') {
             steps {
                 script{
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'azurecontainer',
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'containerpassregistry',
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                         env.REG_USERNAME = USERNAME
                         env.REG_PASSWORD = PASSWORD
                     }
                     checkout scm
                     sh'''
+                    pwd
+                    whoami
+                    docker --version
                     set +x
-                    docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
+                    docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  containerpassregistry.azurecr.io
                     set -x
                     '''
                     echo "#################### Starting ...  #################"
                     echo "#################### Build Images  #################"
                     sh '''
-
-                    
                     export mvnHome = tool 'Maven3.8.6'
                     export mvnCMD ="${mvnHome}/bin/mvn"
-                    
                     ${mvnHome}/bin/mvn clean install -f shopfront/pom.xml
-
-
-
-
                     echo "#################### Tag & Push Image search to azurecr.io #################"
-                    sh '''
 
-                    docker tag yugastore-search:v0.2 containerpassregistry.azurecr.io/search:2.0
-                    docker push containerpassregistry.azurecr.io/search:2.0
-
+                    docker tag shopfront:1.0 containerpassregistry.azurecr.io/shopfront:1.0
+                    docker push containerpassregistry.azurecr.io/shopfront:1.0
                     '''
-
 
                 }
             }
