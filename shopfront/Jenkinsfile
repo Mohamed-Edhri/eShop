@@ -12,6 +12,9 @@ pipeline {
                     }
                     checkout scm
                     sh'''
+                    pwd
+                    whoami
+                    docker --version
                     set +x
                     docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
                     set -x
