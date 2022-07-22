@@ -1,5 +1,6 @@
 pipeline {
     options { skipDefaultCheckout() }
+    agent any
     stages {
         stage('BUILD & Push Image to azure') {
             steps {
