@@ -12,6 +12,20 @@ pipeline {
                     }
                     checkout scm
                     sh'''
+                    
+
+    docker run -it hello-world
+
+
+
+    docker tag hello-world edhriacr2022.azurecr.io/hello-world
+    docker push edhriacr2022.azurecr.io/hello-world
+
+
+
+    docker pull edhriacr2022.azurecr.io/hello-world
+
+
                     pwd
                     whoami
                     docker --version
