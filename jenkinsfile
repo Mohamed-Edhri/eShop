@@ -1,11 +1,11 @@
 pipeline {
     options { skipDefaultCheckout() }
-    agent {label 'master'}
+    agent {label 'Built-InNode'}
     stages {
         stage('BUILD & Push Image to azure') {
             steps {
                 script{
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'containerpassregistry',
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'azurecontainer',
                     usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                         env.REG_USERNAME = USERNAME
                         env.REG_PASSWORD = PASSWORD
@@ -16,7 +16,7 @@ pipeline {
                     whoami
                     docker --version
                     set +x
-                    docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  containerpassregistry.azurecr.io
+                    docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
                     set -x
                     '''
                     echo "#################### Starting ...  #################"
