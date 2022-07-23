@@ -18,7 +18,7 @@ pipeline {
                     docker --version
                     set +x
                   //  docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
-                    docker login -u edhriacr2022 -p uUqzNWODMutvpcWpFcK2/zvEqT5AMsM4 edhriacr2022.azurecr.io/shopfront 
+                    docker login -u edhriacr2022 -p uUqzNWODMutvpcWpFcK2/zvEqT5AMsM4 edhriacr2022.azurecr.io/shopfront:1.0 
                     set -x
                     '''
                     echo "#################### Starting ...  #################"
