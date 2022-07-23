@@ -27,6 +27,7 @@ pipeline {
          stage('Build Stage') {
             steps {
                 echo 'Building..'
+                shell '${mvnHome}/bin/mvn clean install -f shopfront/pom.xml'
             }
         }
         stage('Test Stage') {
