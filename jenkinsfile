@@ -7,18 +7,22 @@ pipeline {
             echo "$GIT_BRANCH"
             }
          }
-         
-         stage('Test Stage') {
-         steps {
-            echo "$GIT_BRANCH"
+               
+         stage('Build') {
+            steps {
+                echo 'Building..'
             }
-         }
-         
-         stage('Build Stage') {
-         steps {
-            echo "$GIT_BRANCH"
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
             }
-         }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
     }
  }  
 
