@@ -8,17 +8,17 @@ pipeline {
             }
          }
                
-         stage('Build') {
+         stage('Build Stage') {
             steps {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('Test Stage') {
             steps {
                 echo 'Testing..'
             }
         }
-        stage('Deploy') {
+        stage('Deploy Stage') {
             steps {
                 echo 'Deploying....'
             }
