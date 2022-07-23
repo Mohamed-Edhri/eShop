@@ -11,7 +11,7 @@ pipeline {
                         env.REG_PASSWORD = PASSWORD
                     }
                     checkout scm
-                    sh'''
+                    shell'''
                     
                     pwd
                     whoami
@@ -23,7 +23,7 @@ pipeline {
                     '''
                     echo "#################### Starting ...  #################"
                     echo "#################### Build Images  #################"
-                    sh '''
+                    shell '''
                     export mvnHome = tool 'Maven3.8.6'
                     export mvnCMD ="${mvnHome}/bin/mvn"
                     ${mvnHome}/bin/mvn clean install -f shopfront/pom.xml
