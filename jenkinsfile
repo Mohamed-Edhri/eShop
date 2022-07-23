@@ -1,42 +1,44 @@
-node{
-    
-    def mvnHome = tool 'Maven3.8.6'
-    def mvnCMD ="${mvnHome}/bin/mvn"
-    
-    environment {
-       registryName = 'edhriacr2022'
-       registryUrl = 'edhriacr2022.azurecr.io'
-       registryCredential = 'myACR'
-       dockerImage = ''
-    }
-    
-    
-    // Checkout Git Branches
-    stage ("Checkout Branches")  {
-       
-       checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Mohamed-Edhri/eShop.git']]])
-    }
-    
-    // Build Application Code
-    stage ('Build Code Application')  {
-        
-    sh '${mvnHome}/bin/mvn clean install -f shopfront/pom.xml'
-    
-    }
-    
-    // Build Docker images 
-    stage ('Build Docker Image')  {
-        
-    sh 'docker build -t edhriacr2022/shopfront:1.0 .'
+pipeline {
+    options { skipDefaultCheckout() }
+    agent any
+    stages {
+        stage('BUILD & Push Image to azure') {
+            steps {
+                script{
+                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'azurecontainer',
+                    usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                        env.REG_USERNAME = USERNAME
+                        env.REG_PASSWORD = PASSWORD
+                    }
+                    checkout scm
+                    sh'''
+                    
+                    pwd
+                    whoami
+                    docker --version
+                    set +x
+                  //  docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
+                    docker login -u edhriacr2022 -p uUqzNWODMutvpcWpFcK2/zvEqT5AMsM4 edhriacr2022.azurecr.io/shopfront:1.0 
+                    set -x
+                    '''
+                    echo "#################### Starting ...  #################"
+                    echo "#################### Build Images  #################"
+                    sh '''
+                    export mvnHome = tool 'Maven3.8.6'
+                    export mvnCMD ="${mvnHome}/bin/mvn"
+                    ${mvnHome}/bin/mvn clean install -f shopfront/pom.xml
+                    echo "#################### Tag & Push Image search to azurecr.io #################"
+
+                    docker tag shopfront:1.0 edhriacr2022.azurecr.io/shopfront:1.0
+                    docker push edhriacr2022.azurecr.io/shopfront:1.0
+                    '''
+
+                }
+            }
+
+
+        }
 
     }
-    
-    // Push Docker images into ACR
-     stage('Push Docker Image to ACR') {
-       
-        sh 'docker push edhriacr2022.azurecr.io/shopfront:1.0'
-      
-   }
-    
 }
 
