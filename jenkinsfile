@@ -1,63 +1,12 @@
 pipeline {
-    options { skipDefaultCheckout() }
+   agent any
 
-    // nodes linux, windows, master, slave
-    agent any  
-
-    stages {
-        stage('BUILD & Push Image to azure') {
-            steps {
-                    script{
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'azurecontainer',
-                    usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                        env.REG_USERNAME = USERNAME
-                        env.REG_PASSWORD = PASSWORD
-                    }
-                    
-                    echo "#################### Checkout Stage Starting ...  #################"
-                    checkout scm
-                    shell'''
-                    pwd
-                    whoami
-                    docker --version
-                    set +x
-                    //  docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
-                    docker login -u edhriacr2022 -p uUqzNWODMutvpcWpFcK2/zvEqT5AMsM4 edhriacr2022.azurecr.io/shopfront:1.0 
-                    set -x
-                    '''
-                  
-                    shell '''
-
-                    echo "#################### Build Application Code Stage Starting ...  #################"
-                    export mvnHome = tool 'Maven3.8.6'
-                    export mvnCMD ="${mvnHome}/bin/mvn"
-                    ${mvnHome}/bin/mvn clean install -f shopfront/pom.xml
-
-                    echo "#################### Test Stage Starting ...  #################"
-           
-
-                    echo "#################### Deploy Stage Starting ...  #################"
-
-
-
-                    echo "#################### Tag & Push Image search to azurecr.io #################"
-
-                    docker tag shopfront:1.0 edhriacr2022.azurecr.io/shopfront:1.0
-                    docker push edhriacr2022.azurecr.io/shopfront:1.0
-
-                    echo "#################### Clean Stage Starting ...  #################"
-
-
-
-                    '''
-
-                }
-            }
-
-
-        }
-
-    }
-}
-
+   stages {
+      stage('Verify Branch') {
+         steps {
+            echo "$GIT_BRANCH"
+         }
+       }
+	}
+}  
 
