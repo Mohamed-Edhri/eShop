@@ -26,7 +26,7 @@ pipeline {
             echo 'Building..'
                script { 
                sh 'docker images -a'
-               sh 'cd shopfront/'
+               sh 'cd shopfront/target'
                sh 'docker images -a'
                //sh '${mvnHome}/bin/mvn clean install -f shopfront/pom.xml'
                sh 'docker build -t shopfront:1.0 . '
