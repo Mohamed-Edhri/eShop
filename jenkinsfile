@@ -24,12 +24,15 @@ pipeline {
          stage('Build Stage') {
             steps {
                 
-                echo 'Building..'
-               
-                sh '${mvnHome}/bin/mvn clean install -f shopfront/pom.xml'
-
-                
-            
+               echo 'Building..'
+               sh 'docker images -a'
+               sh 'cd shopfront/'
+               sh 'docker images -a'
+               sh '${mvnHome}/bin/mvn clean install -f shopfront/pom.xml'
+               //sh 'docker build -t jenkins-pipeline .
+               // sh 'docker images -a'
+               cd ..
+        
             }
         }
         stage('Test Stage') {
@@ -44,6 +47,4 @@ pipeline {
         }
     }
  }  
-
-
 
