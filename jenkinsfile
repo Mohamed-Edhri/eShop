@@ -21,18 +21,16 @@ pipeline {
             }
          }
                
-         stage('Build Stage') {
+        stage('Build Stage') {
             steps {
-                
-               echo 'Building..'
+            echo 'Building..'
+               script { 
                sh 'docker images -a'
                sh 'cd shopfront/'
                sh 'docker images -a'
                sh '${mvnHome}/bin/mvn clean install -f shopfront/pom.xml'
-               //sh 'docker build -t jenkins-pipeline .
-               // sh 'docker images -a'
-               cd ..
-        
+               sh 'cd ..'
+               }
             }
         }
         stage('Test Stage') {
