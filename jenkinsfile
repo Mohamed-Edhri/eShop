@@ -1,6 +1,22 @@
 pipeline {
    agent any
 
+   environment {
+
+       def mvnHome = tool 'Maven3.8.6'
+       def mvnCMD ="${mvnHome}/bin/mvn"
+
+       registryName = 'edhriacr2022'
+       registryUrl = 'edhriacr2022.azurecr.io'
+       registryCredential = 'myACR'
+       dockerImage = ''
+    }
+
+   tools {
+          maven 'Maven3.8.6'
+   }
+    
+
    stages {
         stage('Verify Branch') {
          steps {
@@ -25,4 +41,5 @@ pipeline {
         }
     }
  }  
+
 
