@@ -41,8 +41,8 @@ pipeline {
                     ${mvnHome}/bin/mvn clean install -f shopfront/pom.xml
                     echo "#################### Tag & Push Image search to azurecr.io #################"
 
-                    docker tag shopfront:1.0 containerpassregistry.azurecr.io/shopfront:1.0
-                    docker push containerpassregistry.azurecr.io/shopfront:1.0
+                    docker tag shopfront:1.0 edhriacr2022.azurecr.io/shopfront:1.0
+                    docker push edhriacr2022.azurecr.io/shopfront:1.0
                     '''
 
                 }
