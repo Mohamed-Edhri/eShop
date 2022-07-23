@@ -13,24 +13,12 @@ pipeline {
                     checkout scm
                     sh'''
                     
-
-    docker pull hello-world
-
-
-
-    docker tag hello-world edhriacr2022.azurecr.io/hello-world
-    docker push edhriacr2022.azurecr.io/hello-world
-
-
-
-    docker pull edhriacr2022.azurecr.io/hello-world
-
-
                     pwd
                     whoami
                     docker --version
                     set +x
-                    docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
+                  //  docker login --username=${REG_USERNAME} --password=${REG_PASSWORD}  edhriacr2022.azurecr.io
+                    docker login -u edhriacr2022 -p uUqzNWODMutvpcWpFcK2/zvEqT5AMsM4 edhriacr2022.azurecr.io/shopfront 
                     set -x
                     '''
                     echo "#################### Starting ...  #################"
