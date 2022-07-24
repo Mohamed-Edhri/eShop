@@ -48,9 +48,9 @@ pipeline {
        steps {
                 echo 'Building docker images..'
                 sh 'docker images -a'
-                sh 'docker build -f 'shopfront/Dockerfile' -t shopfront:1.0 .'
-                sh 'docker build -f 'shopfront/Dockerfile' -t productcatalogue:1.0 .'
-                sh 'docker build -f 'shopfront/Dockerfile' -t stockmanager:1.0 .'
+                sh 'docker build -f 'shopfront/Dockerfile'
+                //sh 'docker build -f 'shopfront/Dockerfile' -t productcatalogue:1.0 .'
+               // sh 'docker build -f 'shopfront/Dockerfile' -t stockmanager:1.0 .'
                 sh ' docker images -a'
             }
         
