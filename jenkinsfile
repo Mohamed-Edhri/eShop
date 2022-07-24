@@ -49,6 +49,7 @@ pipeline {
        steps {
                 echo 'Building docker images..'
                 sh 'pwd'
+                sh 'ls'
                 sh ' docker images -a'
                 sh 'cd shopfront/'
                 sh 'docker build -t edhriacr2022/shopfront:1.0 .'
