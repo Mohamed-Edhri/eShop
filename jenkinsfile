@@ -50,7 +50,7 @@ pipeline {
                 echo 'Building docker images..'
                 sh 'cd shopfront/target/'
                 sh 'ls'
-                sh 'docker build -t eShop/shopfront/shopfront:1.0 .'
+                sh 'docker build -t eshop/shopfront/shopfront:1.0 .'
                 sh 'docker images -a'
                 sh 'cd ..'
                 //sh 'docker build -t edhriacr2022/productcatalogue:1.0 .'
