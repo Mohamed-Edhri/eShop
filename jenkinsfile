@@ -48,6 +48,8 @@ pipeline {
        steps {
                 echo 'Building docker images..'
                 sh 'docker images -a'
+                sh 'pwd'
+                sh 'cd shopfront'
                 sh 'docker build -t shopfront:1.0 .'
                 sh 'docker build -t productcatalogue:1.0 .'
                 sh 'docker build -t stockmanager:1.0 .'
