@@ -51,7 +51,7 @@ pipeline {
                 sh 'pwd'
                 sh 'cd shopfront/'
                 sh 'pwd'
-                sh 'docker build -t shopfront:1.0 .'
+                sh 'docker build -t shopfront/target/shopfront:1.0'
                 sh 'docker build -t productcatalogue:1.0 .'
                 sh 'docker build -t stockmanager:1.0 .'
                 sh ' docker images -a'
