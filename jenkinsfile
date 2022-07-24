@@ -30,10 +30,6 @@ pipeline {
             steps {
             echo 'Building..'
             sh 'mvn clean install -f shopfront/pom.xml'
-            sh 'cd shopfront/target/'
-            sh 'ls'
-            sh 'docker build -t edhriacr2022/shopfront:1.0 .'
-            sh 'cd ..'
             sh 'mvn clean install -f productcatalogue/pom.xml'
             sh 'mvn clean install -f stockmanager/pom.xml'
           
@@ -47,7 +43,20 @@ pipeline {
             }
         }
         
+        stage ('Build Docker Image')  {
+       
+       steps {
+                echo 'Building docker images..'
+                sh 'docker images -a'
+                sh 'docker build -t shopfront:1.0 .'
+                sh 'docker build -t productcatalogue:1.0 .'
+                sh 'docker build -t stockmanager:1.0 .'
+                sh ' docker images -a'
+            }
         
+      
+
+       }
        
        
        
