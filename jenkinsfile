@@ -24,14 +24,8 @@ pipeline {
         stage('Build Stage') {
             steps {
             echo 'Building..'
-               script { 
-               sh 'docker images -a'
-               sh 'cd shopfront/'
-               sh '${mvnHome}/bin/mvn clean install -f shopfront/pom.xml'
-               //sh 'docker build -t shopfront:1.0 . '
-               sh 'docker images -a'
-               sh 'cd ..'
-               }
+            sh '${mvnHome}/bin/mvn clean install'
+          
             }
         }
         stage('Test Stage') {
