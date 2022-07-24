@@ -30,6 +30,8 @@ pipeline {
             steps {
             echo 'Building..'
             sh 'mvn clean install -f shopfront/pom.xml'
+            sh 'mvn clean install -f productcatalogue/pom.xml'
+            sh 'mvn clean install -f stockmanager/pom.xml'
           
             }
         }
