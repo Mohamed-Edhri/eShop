@@ -4,7 +4,8 @@ pipeline {
    environment {
 
        def mvnHome = tool 'Maven3.8.6'
-       def mvnCMD ="${mvnHome}/bin/mvn"
+       //def mvnCMD ="${mvnHome}/bin/mvn"
+       PATH = "/usr/bin/mvn:$PATH"
 
        registryName = 'edhriacr2022'
        registryUrl = 'edhriacr2022.azurecr.io'
@@ -24,7 +25,7 @@ pipeline {
         stage('Build Stage') {
             steps {
             echo 'Building..'
-            sh '${mvnHome}/bin/mvn clean install'
+            sh 'mvn clean install'
           
             }
         }
