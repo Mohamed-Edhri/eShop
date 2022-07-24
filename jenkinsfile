@@ -1,11 +1,15 @@
 pipeline {
    agent any
+   
+   tools{
+      maven 'Maven3.8.6'
+   }
 
    environment {
 
-       def mvnHome = tool 'Maven3.8.6'
+       //def mvnHome = tool 'Maven3.8.6'
        //def mvnCMD ="${mvnHome}/bin/mvn"
-       PATH = "/usr/bin/mvn:$PATH"
+      // PATH = "/usr/bin/mvn:$PATH"
 
        registryName = 'edhriacr2022'
        registryUrl = 'edhriacr2022.azurecr.io'
@@ -25,7 +29,7 @@ pipeline {
         stage('Build Stage') {
             steps {
             echo 'Building..'
-            sh 'mvn clean install'
+            sh 'mvn clean install -f shopfront/pom.xml'
           
             }
         }
