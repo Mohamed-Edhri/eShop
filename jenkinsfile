@@ -51,7 +51,7 @@ pipeline {
                 sh 'pwd'
                 sh 'ls'
                 sh ' docker images -a'
-                sh 'cd shopfront/'
+                sh ' cd shopfront/target'
                 sh 'ls'
                 sh 'docker build -t edhriacr2022/shopfront:1.0 .'
                 sh ' docker images -a'
